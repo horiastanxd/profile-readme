@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profile README Generator - clean, minimal GitHub profile READMEs</title>
+<meta name="description" content="Generate a GitHub profile README without the emoji confetti. Live preview, copy markdown, share config by URL. No sign up, runs in your browser.">
+<meta property="og:title" content="Profile README Generator">
+<meta property="og:description" content="Clean, minimal GitHub profile READMEs. Live preview, copy markdown, share config by URL.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='13' font-family='monospace'%3E%23%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Profile README Generator</h1>
+    <p>Fill in the sections you want. Copy the markdown into your <code>username/username</code> repo.</p>
+    <div class="presets">
+      <span>Preset:</span>
+      <button type="button" data-preset="minimal">Minimal</button>
+      <button type="button" data-preset="developer">Developer</button>
+      <button type="button" data-preset="classic">Classic</button>
+      <button type="button" data-preset="blank">Blank</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <form id="form" autocomplete="off">
+    <section>
+      <h2>Basics</h2>
+      <label>Name <input name="name" placeholder="Ada Lovelace"></label>
+      <label>Tagline <input name="tagline" placeholder="Mathematician who writes code"></label>
+      <label>GitHub username <input name="username" placeholder="adalovelace"></label>
+      <label>Location <input name="location" placeholder="London, UK"></label>
+    </section>
+
+    <section>
+      <h2>About</h2>
+      <label>Bio
+        <textarea name="bio" rows="3" placeholder="A short paragraph about who you are and what you build."></textarea>
+      </label>
+      <label>Currently working on <input name="working" placeholder="an analytical engine for symbolic manipulation"></label>
+      <label>Currently learning <input name="learning" placeholder="Rust, distributed systems"></label>
+      <label>Open to <input name="open" placeholder="collaborations on open source math libraries"></label>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <label>Website <input name="website" placeholder="https://example.com"></label>
+      <label>Email <input name="email" placeholder="hello@example.com"></label>
+      <label>X / Twitter <input name="twitter" placeholder="handle"></label>
+      <label>LinkedIn <input name="linkedin" placeholder="in/username"></label>
+      <label>Mastodon <input name="mastodon" placeholder="https://mastodon.social/@user"></label>
+      <label>Bluesky <input name="bluesky" placeholder="handle.bsky.social"></label>
+    </section>
+
+    <section>
+      <h2>Tech stack</h2>
+      <p class="hint">Pick what you actually use. Fewer is better.</p>
+      <div id="stackGroups"></div>
+    </section>
+
+    <section>
+      <h2>GitHub stats</h2>
+      <label class="check"><input type="checkbox" name="showStats"> Show stats card</label>
+      <label class="check"><input type="checkbox" name="showLangs"> Show top languages</label>
+      <label class="check"><input type="checkbox" name="showStreak"> Show streak</label>
+      <label class="check"><input type="checkbox" name="hideBorder"> Borderless cards</label>
+      <label>Theme
+        <select name="theme">
+          <option value="default">Default (light)</option>
+          <option value="dark">Dark</option>
+          <option value="transparent">Transparent</option>
+          <option value="github_dark">GitHub Dark</option>
+          <option value="tokyonight">Tokyo Night</option>
+          <option value="nord">Nord</option>
+          <option value="gruvbox">Gruvbox</option>
+          <option value="dracula">Dracula</option>
+          <option value="catppuccin_mocha">Catppuccin Mocha</option>
+          <option value="rose_pine">Rosé Pine</option>
+        </select>
+      </label>
+    </section>
+
+    <section>
+      <h2>Style</h2>
+      <label class="check"><input type="checkbox" name="useEmoji"> Use section emoji (👋 🔭 🌱)</label>
+      <label class="check"><input type="checkbox" name="centerHeader"> Center the header</label>
+      <label class="check"><input type="checkbox" name="badgeStyle" value="flat"> Flat badges (instead of <code>for-the-badge</code>)</label>
+    </section>
+
+    <section class="share">
+      <button type="button" id="shareBtn">Copy shareable link</button>
+      <button type="button" id="resetBtn">Reset</button>
+    </section>
+  </form>
+
+  <aside id="output">
+    <div class="tabs">
+      <button type="button" class="tab active" data-tab="preview">Preview</button>
+      <button type="button" class="tab" data-tab="markdown">Markdown</button>
+      <div class="actions">
+        <button type="button" id="copyBtn">Copy markdown</button>
+      </div>
+    </div>
+    <div class="pane" id="previewPane"></div>
+    <pre class="pane hidden" id="markdownPane"></pre>
+  </aside>
+</main>
+
+<footer class="wrap">
+  <p>
+    Runs in your browser - nothing is uploaded. Stats cards come from
+    <a href="https://github.com/anuraghazra/github-readme-stats">github-readme-stats</a>,
+    badges from <a href="https://shields.io">shields.io</a>.
+    <a href="https://github.com/horiastanxd/profile-readme">Source</a>.
+  </p>
+</footer>
+
+<script src="stack.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
