@@ -90,7 +90,7 @@ function renderStackGroups() {
     const grid = document.createElement('div');
     grid.className = 'stack-grid';
     for (const item of group.items) {
-      const id = 'stack-' + item.name.replace(/\W/g, '');
+      const id = 'stack-' + item.slug + '-' + item.name.replace(/\W/g, '');
       const wrap = document.createElement('label');
       wrap.className = 'stack-item';
       wrap.innerHTML = `<input type="checkbox" id="${id}" value="${item.name}"> <span>${item.name}</span>`;
@@ -206,12 +206,13 @@ function buildMarkdown(s) {
   }
 
   const contact = [];
-  if (s.website) contact.push(`[Website](${s.website})`);
-  if (s.email) contact.push(`[Email](mailto:${s.email})`);
-  if (s.twitter) contact.push(`[X](https://x.com/${s.twitter.replace(/^@/, '')})`);
-  if (s.linkedin) contact.push(`[LinkedIn](https://linkedin.com/${s.linkedin.replace(/^\//, '')})`);
-  if (s.mastodon) contact.push(`[Mastodon](${s.mastodon})`);
-  if (s.bluesky) contact.push(`[Bluesky](https://bsky.app/profile/${s.bluesky.replace(/^@/, '')})`);
+  const encPath = v => encodeURI(v).replace(/[()]/g, c => c === '(' ? '%28' : '%29');
+  if (s.website) contact.push(`[Website](${encPath(s.website)})`);
+  if (s.email) contact.push(`[Email](mailto:${encodeURIComponent(s.email)})`);
+  if (s.twitter) contact.push(`[X](https://x.com/${encodeURIComponent(s.twitter.replace(/^@/, ''))})`);
+  if (s.linkedin) contact.push(`[LinkedIn](https://linkedin.com/${encPath(s.linkedin.replace(/^\//, ''))})`);
+  if (s.mastodon) contact.push(`[Mastodon](${encPath(s.mastodon)})`);
+  if (s.bluesky) contact.push(`[Bluesky](https://bsky.app/profile/${encodeURIComponent(s.bluesky.replace(/^@/, ''))})`);
   if (contact.length) {
     lines.push('## Elsewhere', '');
     lines.push(contact.join(' · '));
